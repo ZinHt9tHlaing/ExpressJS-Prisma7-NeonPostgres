@@ -13,3 +13,4 @@
 #misc
 DS_Store
 .package-lock.json
+/src/generated/prisma
