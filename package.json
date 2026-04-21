@@ -6,7 +6,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx tsc -w",
     "dev": "npx nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "db:push": "npx prisma db push",
+    "db:generate": "npx prisma generate",
+    "db:seed": "npx prisma db seed",
+    "db:studio": "npx prisma studio",
+    "db:migrate": "npx prisma migrate dev",
+    "db:reset": "npx prisma migrate reset && pnpm db:seed"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +35,8 @@
     "multer": "^2.0.2",
     "pino": "^9.7.0",
     "pino-pretty": "^13.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

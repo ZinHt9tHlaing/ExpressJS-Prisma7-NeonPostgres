@@ -1,30 +1,27 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id])
+enum PostStatus {
+  DONE
+  IN_PROGRESS
 }
 
-model User {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String?
-  posts Post[]
+model Post {
+  id        String     @id @default(cuid())
+  title     String
+  body      String
+  status    PostStatus @default(IN_PROGRESS)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
