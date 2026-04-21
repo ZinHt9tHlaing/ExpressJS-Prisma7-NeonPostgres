@@ -31,26 +31,60 @@ cd your-repo-name
 ### 2. Install dependencies
 
 ```bash
+npm install
+```
+or
+
+```bash
 pnpm install
 ```
 
-3. Set up environment variables
+### 3. Set up environment variables
+
+## 🐘 Neon Database
+
+This project uses **Neon serverless PostgreSQL**.
+
+Steps:
+
+1. Go to https://neon.tech
+
+2. Create a new project
+
+3. Copy the connection string
+
+4. Add it to .env.local
 
 ```bash
 DATABASE_URL="postgresql://<user>:<password>@<host>/<dbname>?sslmode=require"
-PORT=3000
 ```
 
-4. Set up Prisma and the database
+### 4. Set up Prisma and the database
 
+Generate Prisma client.
+```bash
+npx prisma generate
+```
+
+Run database migrations.
 ```bash
 npx prisma migrate dev --name init
 ```
 
-5. Run the development server
+Open Prisma Studio.
+```bash
+npx prisma studio
+```
+
+### 5. Run the development server
 
 ```bash
 npm run dev
+```
+or
+
+```bash
+pnpm dev
 ```
 
 
