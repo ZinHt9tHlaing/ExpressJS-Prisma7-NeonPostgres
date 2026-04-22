@@ -19,6 +19,23 @@ A Repo for building REST APIs with **Express.js**, **TypeScript**, **Prisma ORM*
 - [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
 - A [Neon](https://neon.tech/) account (free tier available)
 
+### Project Structure
+
+```bash
+src/
+├── config/          # Queue, and storage configuration
+├── controllers/     # HTTP request/response handlers
+├── lib/             # Prisma configuration
+├── middlewares/     # asyncHandler, errorHandler, validateRequest, etc.
+├── models/          # PostgreSQL models and TypeScript interfaces
+├── routes/          # API route definitions
+├── types/           # Shared TypeScript type definitions
+├── utils/           # AppError, logger, response helpers
+├── validations/     # express-validator schemas
+├── app.ts           # Express app setup
+└── index.ts         # Server entry point
+```  
+
 ## Getting Started
 
 ### 1. Clone the repository
@@ -56,24 +73,33 @@ Steps:
 4. Add it to .env.local
 
 ```bash
+PORT=
+CLIENT_URL=
+
 DATABASE_URL="postgresql://<user>:<password>@<host>/<dbname>?sslmode=require"
+
+NODE_ENV=
+
+JWT_SECRET=
 ```
 
 ### 4. Set up Prisma and the database
 
 Generate Prisma client.
 ```bash
-npx prisma generate
+# npx prisma generate
+npm run db:generate
 ```
 
 Run database migrations.
 ```bash
-npx prisma migrate dev --name init
+# npx prisma migrate dev
+npm run db:migrate
 ```
 
 Open Prisma Studio.
 ```bash
-npx prisma studio
+npm run db:studio
 ```
 
 ### 5. Run the development server
