@@ -7,6 +7,12 @@ const adapter = new PrismaPg({ connectionString: databaseUrl });
 
 const globalPrisma = global as unknown as { prisma: PrismaClient };
 
-export const prisma = globalPrisma.prisma || new PrismaClient({ adapter });
+export const prisma =
+  globalPrisma.prisma ||
+  new PrismaClient({
+    adapter,
+    log: ["error", "query"],
+    errorFormat: "pretty",
+  });
 
 if (process.env.NODE_ENV !== "production") globalPrisma.prisma = prisma;
