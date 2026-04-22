@@ -1,5 +1,4 @@
 import express, { Application, NextFunction, Request, Response } from "express";
-import { routes } from "./routes/routeIndex";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import compression from "compression";
@@ -8,11 +7,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 
+// routes imports
+import routes from "./routes/indexRoute";
+
 export const app: Application = express();
 
-app.use(
-  cors()
-);
+app.use(cors());
 app
   .use(bodyParser.json({ limit: "10mb" }))
   .use(bodyParser.urlencoded({ extended: true, limit: "10mb" }))
@@ -23,8 +23,8 @@ app
   .use(helmet())
   .use(compression());
 
-// dynamic routes
-routes(app);
+// routes
+app.use(routes);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   const status = error.status || 500;
