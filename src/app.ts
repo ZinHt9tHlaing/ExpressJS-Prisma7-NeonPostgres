@@ -7,8 +7,12 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 
-// routes imports
+// import custom middlewares
+import { rateLimiter } from "./middlewares/rateLimiter";
+
+// import routes
 import routes from "./routes/indexRoute";
+import { errorHandler } from "./utils/errorHandler";
 
 export const app: Application = express();
 
@@ -21,16 +25,11 @@ app
   .use(express.json())
   .use(cookieParser())
   .use(helmet())
-  .use(compression());
+  .use(compression())
+  .use(rateLimiter); // limits the number of requests from a single IP;
 
 // routes
 app.use(routes);
 
-app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-  const status = error.status || 500;
-  const message = error.message || "Server Error";
-  const errorCode = error.code || "Error_Code";
-
-  res.status(status).json({ message, error: errorCode });
-  next();
-});
+// error handler
+app.use(errorHandler);
